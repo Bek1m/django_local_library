@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Title: {{ author.name }}</h1>
+
+  <p><strong>Author name and surname:</strong> <a href="">{{author.firstname}} {{author.lastname}}</a></p>
+  <!-- author detail link not yet defined -->
+  <p><strong>Author ID:</strong> {{ author.id }}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h2>Books</h2>
+
+    {% for book in author.book_set.all %}
+    <hr />
+    <p><strong>Title:</strong> <a href="{{ book.get_absolute_url }}">{{ book.title }}</a></p>
+    <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
+    <p><strong>Language:</strong> {{ book.language }}</p>
+    <p><strong>Summary:</strong> {{ book.summary }}</p>
+  {% empty %}
+    <p>No books available for this author.</p>
+  {% endfor %}
+</div>
+{% endblock %}
